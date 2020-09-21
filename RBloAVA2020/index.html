@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>CERTIFICADO</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+</head>
+
+<body>
+  <div>
+
+    <div class="container" style="margin-top: 2%;">
+      <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+          <form id="formCertificado" method="POST" action="generator.php">
+            <fieldset id="fielddatos">
+              <section>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="">Email</span>
+                  </div>
+                  <input type="email" class="form-control" id="email" name="email" aria-label="Default"
+                    aria-describedby="inputGroup-sizing-default " placeholder="mail@mail.com" required>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="resultado"></span>
+                  </div>
+                </div>
+                <div class="">
+                  <div class="row">
+                    <div class="col-md-5">
+                    </div>
+                    <div class="col-md-1">
+                      <form method="post">
+                        <input type="button" id="enviar" name="enviar" class="enviar btn btn-secondary"
+                          value="Enviar" />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section>
+                <div id="resultado"></div><br>
+              </section>
+            </fieldset>
+          </form>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#resultado").hide();
+      $("#enviar").click(function (e) {
+        e.preventDefault();
+        var patt = new RegExp("[ A-Za-zñÑäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]");
+        var email = new RegExp("/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/");
+        var flag = [];
+        if (email.test($("#email").val())) {
+          flag.push("Email")
+        }
+        if (flag.length === 0) {
+          $.ajax({
+            type: "POST",
+            url: "validity.php",
+            data: $('form').serialize(), // serializes the form's elements.
+            beforeSend: function () {
+              $("#resultado").show();
+              $("#resultado").html("Procesando, espere por favor...");
+            },
+            success: function (data) {
+              $("#resultado").hide();
+              //alert(data); // show response from the php script
+              if (data == "0") {
+                //Si lo encontraron, Nombre ya deberá estar guardado.
+                //window.location.replace("http://www.talent-network.org");
+                var name = $("#nombre").val();
+                document.getElementById("formCertificado").submit();
+              }
+              else if (data == "1") {
+                //No se encontró
+                alert("Por favor verifica que los datos ingresados sean correctos");
+              }
+            },
+            error: function (xhr, texto) {
+              $("#resultado").show();
+              $("#resultado").html("Ocurrio un error de servidor: " + texto);
+            }
+          });
+        } else {
+          let str = "Revisa que los siguientes campos se encuentren completos y que no tengan caracteres especiales.\n";
+          flag.forEach(element => {
+            str += "-" + element + "\n";
+          })
+          alert(str)
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>
