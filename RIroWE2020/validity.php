@@ -12,7 +12,7 @@
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
-	$sql = "SELECT Email,UPPER(Nombre_Ponente) as nameP,Panel,Downloads FROM $Table WHERE email='$email' AND Data='P'";
+	$sql = "SELECT Email,UPPER(Name) as nameP,Downloads FROM $Table WHERE email='$email' AND Data='P'";
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		global $code;
