@@ -1,9 +1,9 @@
 <?php
 	$Table = "RDevKelloggs2020";
 	$servername = "localhost";
-	$username = "uhkcjwabf4e2s";
-	$password = "9bw3fzvp7pc4";
-	$dbname = "dbesr7c6bhzjt8";
+	$username = "uhfqd5vcyivsh";
+	$password = "mwssmgg8b8qk";
+	$dbname = "dbpjuvqxiljrfa";
 
 	ini_set('max_execution_time', 0);
 	mb_internal_encoding('UTF-8');

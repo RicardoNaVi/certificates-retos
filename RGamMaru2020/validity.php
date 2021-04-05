@@ -1,9 +1,9 @@
 <?php
 	$Table = "RGamMaru2020";
 	$servername = "localhost";
-	$username = "uhkcjwabf4e2s";
-	$password = "9bw3fzvp7pc4";
-	$dbname = "dbesr7c6bhzjt8";
+	$username = "uhfqd5vcyivsh";
+	$password = "mwssmgg8b8qk";
+	$dbname = "dbpjuvqxiljrfa";
 
 	$email = mb_strtolower($_POST['email']);
 
